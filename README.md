@@ -1,24 +1,21 @@
-# README
+# Kulu Assignment
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## project setup
 
-Things you may want to cover:
+- run `bin/setup`
+- run `bundle`
+- run `yarn install`
+- run `bin/dev`
 
-* Ruby version
+### Docker project build
 
-* System dependencies
+- run `docker build -t kulu_assignment .`
 
-* Configuration
+### Docker run
 
-* Database creation
+- run `docker run -t -i -e RAILS_MASTER_KEY=<master_key> -p 3000:3000 kulu_assignment:latest`
 
-* Database initialization
+### Debug in Docker
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- get image name `docker ps`
+- run `docker exec -i <image name>`
