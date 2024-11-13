@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "home#index"
+  # route all get request through home#index so that react router can render page
+  get '*path', to: 'home#index', via: :all
 end
