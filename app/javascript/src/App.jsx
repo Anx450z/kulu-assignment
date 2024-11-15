@@ -5,6 +5,7 @@ import GoogleLogin from './components/GoogleLogin'
 import { registerIntercepts, setAuthHeaders } from './services/api'
 import AuthCallback from './components/AuthCallback'
 import { isLoggedIn }  from './services/storage'
+import { Dashboard } from './components/Dashboard'
 
 const PrivateRoute = ({ children }) => {
   return isLoggedIn() ? children : <Navigate to="/login" />
@@ -31,7 +32,7 @@ const App = () => {
             path="/dashboard"
             element={
               <PrivateRoute>
-                <div>Protected Dashboard</div>
+                <Dashboard/>
               </PrivateRoute>
             }
           />

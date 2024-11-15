@@ -7,7 +7,7 @@ export const Dashboard = () => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    authService.removeToken()
+    authService.logout()
     navigate('/login')
   }
 

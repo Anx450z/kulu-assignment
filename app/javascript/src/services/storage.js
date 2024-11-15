@@ -3,7 +3,7 @@ const setToLocalStorage = (authToken, email) => {
   localStorage.setItem('authEmail', JSON.stringify(email))
 }
 
-const getFromLocalStorage = () => {
+const getFromLocalStorage = (key) => {
   let response = ''
   try {
     const value = localStorage.getItem(key)

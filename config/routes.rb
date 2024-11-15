@@ -9,9 +9,14 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  devise_for :users, controllers: {
+  devise_for :users, skip: [ :sessions ], controllers: {
     omniauth_callbacks: "users/omniauth_callbacks"
   }
+  namespace :api do
+    namespace :v1 do
+      resource :sessions, only: [ :destroy ]
+    end
+  end
   # Defines the root path route ("/")
   root "home#index"
   # route all get request through home#index so that react router can render page
