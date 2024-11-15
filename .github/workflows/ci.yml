@@ -1,3 +1,8 @@
+env:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: postgres
+
 name: CI
 
 on:
@@ -37,15 +42,16 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
-  test:
+  rspec-test:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 30
     services:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          RAILS_ENV: test
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -71,9 +77,6 @@ jobs:
           bin/rails parallel:prepare RAILS_ENV=test
 
       - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: bundle exec rails parallel:spec --verbose RAILS_ENV=test
 
       - name: Keep screenshots from failed system tests
