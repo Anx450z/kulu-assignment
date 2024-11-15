@@ -1,41 +1,40 @@
-import { authService } from './auth'
+import axios from 'axios'
+import { isLoggedIn, getFromLocalStorage } from './storage'
+import Toastr from '../components/Toastr'
 
-const BASE_URL = 'http://localhost:3000/api'
+const DEFAULT_ERROR_NOTIFICATION = 'Something went wrong!'
 
-export const apiService = {
-  async request(endpoint, options = {}) {
-    const token = authService.getToken()
+axios.defaults.baseURL = '/'
 
-    const headers = {
-      'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }),
-      ...options.headers,
-    }
+export const setAuthHeaders = setLoading => {
+  axios.defaults.headers.common = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': document.querySelector('[name="csrf-token"]')?.getAttribute('content'),
+  }
+  if (isLoggedIn()) {
+    axios.defaults.headers.common.Authorization = 'Bearer ' + getFromLocalStorage('authToken')
+  }
+  setLoading(false)
+}
 
-    const response = await fetch(`${BASE_URL}${endpoint}`, {
-      ...options,
-      headers,
-    })
+const handleSuccessResponse = (response) => {
+  return response
+}
 
-    if (!response.ok) {
-      if (response.status === 401) {
-        authService.removeToken()
-        window.location.href = '/login'
-      }
-      throw new Error('API request failed')
-    }
+const handleErrorResponse = axiosErrorObject => {
+  if (axiosErrorObject.response?.status === 401) {
+    setTimeout(() => (window.location.href = '/'), 2000)
+  }
+  Toastr.error(axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION)
+  if (axiosErrorObject.response?.status === 423) {
+    window.location.href = '/'
+  }
+  return Promise.reject(axiosErrorObject)
+}
 
-    return response.json()
-  },
-
-  get(endpoint) {
-    return this.request(endpoint, { method: 'GET' })
-  },
-
-  post(endpoint, data) {
-    return this.request(endpoint, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-  },
+export const registerIntercepts = () => {
+  axios.interceptors.response.use(handleSuccessResponse, error => {
+    handleErrorResponse(error)
+  })
 }
