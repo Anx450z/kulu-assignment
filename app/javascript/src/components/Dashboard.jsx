@@ -10,11 +10,13 @@ export const Dashboard = () => {
     authService.logout()
     navigate('/login')
   }
+  const email = localStorage.getItem('authEmail')
 
   return (
     <div>
       <nav className="nav-bar">
         <h1>Dashboard</h1>
+        <p>{email}</p>
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>

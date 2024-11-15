@@ -1,6 +1,6 @@
 const setToLocalStorage = (authToken, email) => {
   localStorage.setItem('authToken', JSON.stringify(authToken))
-  localStorage.setItem('authEmail', JSON.stringify(email))
+  localStorage.setItem('authEmail',email)
 }
 
 const getFromLocalStorage = (key) => {
