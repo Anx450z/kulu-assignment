@@ -2,6 +2,8 @@ module Api
   module V1
     class BaseController < ApplicationController
       before_action :authenticate_user!, :set_default_format!
+      protect_from_forgery with: :null_session
+      respond_to :json
 
       def set_default_format!
         request.format = :json
