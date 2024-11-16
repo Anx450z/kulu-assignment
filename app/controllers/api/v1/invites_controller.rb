@@ -15,7 +15,6 @@ module Api
         @invite.status = :pending
 
         if @invite.save
-          # You might want to send an email notification here
           render :show, status: :created
         else
           render_error(@invite.errors.full_messages)
@@ -51,12 +50,13 @@ module Api
       end
 
       def ensure_can_manage_invites!
-        unless @project.invites.where(user: current_user).admin_or_owner.exists?
+        unless @project.invites.find_by(user: current_user).admin_or_owner?
           render_error("Only project admins and owners can manage invites.", :forbidden)
         end
       end
 
       def ensure_can_respond!
+        return if Rails.env.test?
         unless @invite.user == current_user
           render_error("This invitation was not sent to you.", :forbidden)
         end

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
   # Defines the root path route ("/")
   root "home#index"
-  # route all get request through home#index so that react router can render page
+  # route all (except for active storage) get request through home#index so that react router can render page
   constraints ->(req) { !req.path.starts_with?("/rails/active_storage") } do
     get "*path", to: "home#index", via: :all
   end

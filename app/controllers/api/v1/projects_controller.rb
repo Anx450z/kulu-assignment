@@ -48,7 +48,7 @@ module Api
       end
 
       def project_params
-        params.require(:project).permit(:name, :description)
+        params.require(:project).permit(:title, :description)
       end
 
       def ensure_owner!

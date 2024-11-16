@@ -1,14 +1,9 @@
 module Api
   module V1
     class BaseController < ApplicationController
-      before_action :authenticate_user!, :set_default_format!
+      before_action :authenticate_user!
       protect_from_forgery with: :null_session
       respond_to :json
-
-      def set_default_format!
-        request.format = :json
-        @camel_case = true if !Rails.env.test?
-      end
 
       def authenticate_user!
         token_details = AuthenticateTokenService.new(request).call
@@ -21,6 +16,12 @@ module Api
             ]
           }, status: :unauthorized
         end
+      end
+
+      private
+
+      def render_error(message, status = :unprocessable_entity)
+        render json: { error: message }, status: status
       end
     end
   end
