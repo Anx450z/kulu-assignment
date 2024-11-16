@@ -11,13 +11,18 @@ module Api
       end
 
       def create
-        @invite = @project.invites.new(invite_params)
-        @invite.status = :pending
+        invited_user= User.find_by_email(invite_params[:email])
+        if invited_user
+          @invite = @project.invites.new(user_id: invited_user.id, role: invite_params[:role])
+          @invite.status = :pending
 
-        if @invite.save
-          render :show, status: :created
+          if @invite.save
+            render :show, status: :created
+          else
+            render_error(@invite.errors.full_messages)
+          end
         else
-          render_error(@invite.errors.full_messages)
+          render_error("User with email #{invite_params[:email]} does not exist.")
         end
       end
 
@@ -46,7 +51,7 @@ module Api
       end
 
       def invite_params
-        params.require(:invite).permit(:user_id, :role)
+        params.require(:invite).permit(:email, :role)
       end
 
       def ensure_can_manage_invites!

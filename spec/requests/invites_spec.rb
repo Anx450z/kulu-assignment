@@ -21,7 +21,7 @@ RSpec.describe 'Api::V1::Invites', type: :request do
 
   describe 'POST /api/v1/projects/:project_id/invites' do
     let(:new_user) { create(:user) }
-    let(:valid_params) { { invite: { user_id: new_user.id, role: 'member' } } }
+    let(:valid_params) { { invite: { email: new_user.email, role: 'member' } } }
 
     it 'creates a new invite' do
       expect {
