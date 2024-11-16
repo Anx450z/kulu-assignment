@@ -15,10 +15,20 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :sessions, only: [ :destroy ]
+
+      resources :projects do
+        resources :invites, only: %i[index show create destroy] do
+          member do
+            post :accept
+          end
+        end
+      end
     end
   end
   # Defines the root path route ("/")
   root "home#index"
-  # route all get request through home#index so that react router can render page
-  get "*path", to: "home#index", via: :all
+  # route all (except for active storage) get request through home#index so that react router can render page
+  constraints ->(req) { !req.path.starts_with?("/rails/active_storage") } do
+    get "*path", to: "home#index", via: :all
+  end
 end
