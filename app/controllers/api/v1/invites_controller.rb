@@ -11,8 +11,8 @@ module Api
       end
 
       def create
-        invited_user= User.find_by_email(invite_params[:email])
-        if invited_user
+        invited_user = User.find_by_email(invite_params[:email])
+        if invited_user && [ "admin", "member" ].include?(invite_params[:role])
           @invite = @project.invites.new(user_id: invited_user.id, role: invite_params[:role])
           @invite.status = :pending
 
@@ -22,7 +22,7 @@ module Api
             render_error(@invite.errors.full_messages)
           end
         else
-          render_error("User with email #{invite_params[:email]} does not exist.")
+          render_error("User with email #{invite_params[:email]} does not exist.", :not_found)
         end
       end
 

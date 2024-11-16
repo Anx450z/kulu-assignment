@@ -34,6 +34,16 @@ RSpec.describe 'Api::V1::Invites', type: :request do
     end
   end
 
+  describe 'POST /api/v1/projects/:project_id/invites' do
+    let(:new_user) { create(:user) }
+    let(:valid_params) { { invite: { email: new_user.email, role: 'owner' } } }
+
+    it 'does not creates a new invite' do
+      post api_v1_project_invites_path(project), params: valid_params.to_json, headers: headers
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe 'POST /api/v1/projects/:project_id/invites/:id/accept' do
     let(:user2) { create(:user) }
     let(:invite) { create(:invite, project: project, user: user2) }

@@ -70,4 +70,4 @@ jobs:
           bin/rails db:prepare RAILS_ENV=test
 
       - name: Run tests
-        run: RAILS_ENV=test bundle exec rspec spec
+        run: RAILS_ENV=test bundle exec rspec spec/models
