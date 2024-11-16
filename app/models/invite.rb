@@ -2,7 +2,7 @@ class Invite < ApplicationRecord
   belongs_to :project
   belongs_to :user
 
-  enum status: { pending: 0, accepted: 1, declined: 2 }
+  enum status: { pending: 0, accepted: 1 }
   enum role: { member: 0, admin: 1, owner: 2 }
 
   validates :status, presence: true
