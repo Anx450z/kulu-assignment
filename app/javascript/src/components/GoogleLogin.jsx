@@ -12,7 +12,7 @@ const GoogleLogin = () => {
       <button
           type="submit"
           className="google-login-button"
-        >Signup</button>
+        >Login with Google</button>
       </form>
     </div>
   )
