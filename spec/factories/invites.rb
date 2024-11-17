@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :invite do
-    project
-    user
+    project_id { :project_id }
+    email { :email }
     role { :member }
     status { :pending }
 
