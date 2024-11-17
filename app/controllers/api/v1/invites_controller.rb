@@ -7,7 +7,7 @@ module Api
       before_action :ensure_can_respond!, only: [ :accept ]
 
       def index
-        @invites = current_user.invites
+        @invites = current_user.invites.pending
       end
 
       def create
