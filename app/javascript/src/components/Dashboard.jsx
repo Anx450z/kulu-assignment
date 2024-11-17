@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authService } from '../services/auth'
+import { Projects } from './Projects'
 import '../styles/auth.css'
 
 export const Dashboard = () => {
@@ -21,7 +22,7 @@ export const Dashboard = () => {
           Logout
         </button>
       </nav>
-      <div className="dashboard-container">{/* Your dashboard content here */}</div>
+      <div className="dashboard-container"><Projects /></div>
     </div>
   )
 }
