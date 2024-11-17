@@ -2,11 +2,11 @@ FactoryBot.define do
   factory :project do
     sequence(:title) { |n| "Project #{n}" }
     description { "Sample project description" }
-    owner_id { create(:user).id } # Correctly assign a user ID
+    owner { create(:user) }
 
     trait :with_owner do
       after(:build) do |project|
-        project.owner_id ||= create(:user).id
+        project.owner ||= create(:user)
       end
     end
 
@@ -16,9 +16,9 @@ FactoryBot.define do
       end
 
       after(:create) do |project, evaluator|
-        owner = User.find(project.owner_id) # Use the existing owner
+        owner = User.find(project.owner.id)
 
-        create_list(:invite, evaluator.members_count, user: owner, project_id: project.id, role: :member, status: :accepted)
+        create_list(:invite, evaluator.members_count, user: owner, project: project, role: :member, status: :accepted)
       end
     end
 

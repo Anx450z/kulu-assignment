@@ -49,7 +49,7 @@ module Api
       end
 
       def set_invite
-        @invite = Invite.find_by(email: params[:email], project: params[:project_id])
+        @invite = @project.invites.find_by(email: params[:email])
       end
 
       def set_user
@@ -61,7 +61,7 @@ module Api
       end
 
       def ensure_can_manage_invites!
-        unless Invites.find_by(invite_params).admin? || @project.owner?
+        unless @project.invites.find_by(email: params[:email]).admin? || @project.owner?(current_user)
           render_error("Only project admins and owners can manage invites.", :forbidden)
         end
       end

@@ -5,7 +5,7 @@ class CreateInvites < ActiveRecord::Migration[7.2]
       t.integer :status, default: 0
       t.integer :role, default: 0
       t.string :email, null: false
-      t.integer :project_id, null: false
+      t.references :project, null: false, foreign_key: true
       t.timestamps
     end
     add_index :invites, [ :email, :project_id ], unique: true

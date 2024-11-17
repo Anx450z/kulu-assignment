@@ -1,8 +1,11 @@
 class Project < ApplicationRecord
   has_many :users
+  has_many :invites
+  belongs_to :owner, class_name: "User"
+
   validates :title, presence: true
 
-  def owner?
-    owner_id == current_user.id
+  def owner?(current_user)
+    owner == current_user
   end
 end

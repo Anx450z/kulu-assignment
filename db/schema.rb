@@ -19,20 +19,22 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_17_140629) do
     t.integer "status", default: 0
     t.integer "role", default: 0
     t.string "email", null: false
-    t.integer "project_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email", "project_id"], name: "index_invites_on_email_and_project_id", unique: true
+    t.index ["project_id"], name: "index_invites_on_project_id"
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -54,14 +56,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_17_140629) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "project_id", null: false
+    t.bigint "project_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["project_id"], name: "index_users_on_project_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "invites", "projects"
   add_foreign_key "invites", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "projects", "users", column: "owner_id"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "projects"
 end

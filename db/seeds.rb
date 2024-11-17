@@ -13,9 +13,9 @@ puts "Created #{users.count} users"
 
 puts "Creating projects..."
 projects = [
-  { title: 'Web Application', description: 'Building a new web application', owner_id: users.sample.id },
-  { title: 'Mobile App', description: 'iOS and Android development', owner_id: users.sample.id },
-  { title: 'Database Migration', description: 'Migrating legacy database', owner_id: users.sample.id }
+  { title: 'Web Application', description: 'Building a new web application', owner: users.sample },
+  { title: 'Mobile App', description: 'iOS and Android development', owner: users.sample },
+  { title: 'Database Migration', description: 'Migrating legacy database', owner: users.sample }
 ].map do |project_attrs|
   project = Project.create!(project_attrs)
   project
@@ -28,7 +28,7 @@ puts "Creating invites..."
 invites = []
 
 projects.each do |project|
-  owner = User.find(project.owner_id)
+  owner = User.find(project.owner.id)
 
   other_users = users - [ owner ]
 
@@ -37,7 +37,7 @@ projects.each do |project|
     other_users -= [ user ]
 
     invites << Invite.create!(
-      project_id: project.id,
+      project: project,
       user: user,
       role: [ :member, :admin ].sample,
       status: [ :pending, :accepted ].sample,

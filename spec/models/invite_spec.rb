@@ -10,7 +10,7 @@ RSpec.describe Invite, type: :model do
       status: "pending",
       role: "member",
       email: "test@example.com",
-      project_id: project.id
+      project: project
     )
   end
 
@@ -29,8 +29,8 @@ RSpec.describe Invite, type: :model do
     end
 
     it 'does not allow duplicate invites for the same project and email' do
-      invite = create(:invite, email: "test@example.com", project_id: project.id)
-      duplicate_invite = build(:invite, email: "test@example.com", project_id: project.id)
+      invite = create(:invite, email: "test@example.com", project: project)
+      duplicate_invite = build(:invite, email: "test@example.com", project: project)
       expect(duplicate_invite).not_to be_valid
       expect(duplicate_invite.errors[:email]).to include("is already invited to this project")
     end
@@ -41,7 +41,7 @@ RSpec.describe Invite, type: :model do
   end
 
   describe 'Scopes' do
-    let!(:pending_invite) { create(:invite, project_id: project.id, user: user, status: :pending) }
+    let!(:pending_invite) { create(:invite, project: project, user: user, status: :pending) }
     let!(:accepted_invite) { create(:invite, status: :accepted) }
 
     it 'returns only pending invites' do
