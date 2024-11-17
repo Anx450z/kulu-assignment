@@ -1,13 +1,13 @@
 module Api
   module V1
     class InvitesController < Api::V1::BaseController
-      before_action :set_project
+      before_action :set_project, except: [ :index ]
       before_action :set_invite, only: [ :destroy, :accept ]
       before_action :ensure_can_manage_invites!, only: [ :create, :destroy ]
       before_action :ensure_can_respond!, only: [ :accept ]
 
       def index
-        @invites = current_user.invites.pending
+        @invites = current_user.invites
       end
 
       def create

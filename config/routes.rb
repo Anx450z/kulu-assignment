@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :sessions, only: [ :destroy ]
+      resources :invites, only: [ :index ]
 
       resources :projects do
-        resources :invites, only: %i[index show create destroy] do
+        resources :invites, only: %i[show create destroy] do
           member do
             post :accept
           end

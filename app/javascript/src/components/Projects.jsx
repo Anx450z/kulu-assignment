@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import '../styles/project.css'
 import axios from 'axios'
 import useSWR from 'swr'
+import { useNavigate } from 'react-router-dom'
 
 export const Projects = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const navigate = useNavigate()
 
   const getProjects = async () => {
     const response = await axios.get('/api/v1/projects')
@@ -53,7 +55,7 @@ export const Projects = () => {
           <div>
             {projects.projects? (
               projects.projects.map(project => (
-                <div key={project.id} className="project-card">
+                <div key={project.id} className="project-card" onClick={() => navigate(`/project/${project.id}`)}>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                 </div>

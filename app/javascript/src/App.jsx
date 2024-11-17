@@ -6,6 +6,7 @@ import { registerIntercepts, setAuthHeaders } from './services/api'
 import AuthCallback from './components/AuthCallback'
 import { isLoggedIn }  from './services/storage'
 import { Dashboard } from './components/Dashboard'
+import { Project } from './components/Project'
 
 const PrivateRoute = ({ children }) => {
   return isLoggedIn() ? children : <Navigate to="/login" />
@@ -33,6 +34,13 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Dashboard/>
+              </PrivateRoute>
+            }
+          />
+          <Route path="/project/:id"
+            element={
+              <PrivateRoute>
+                <Project/>
               </PrivateRoute>
             }
           />
