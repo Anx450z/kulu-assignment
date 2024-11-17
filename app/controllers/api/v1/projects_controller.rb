@@ -9,12 +9,13 @@ module Api
       end
 
       def show
-        @members = Invite.where(project_id: @project.id, status: :accepted).users
-        @pending_invites = Invite.where(project_id: @project.id).pending
+        @members = @project.invites.accepted
+        @pending_invites = @project.invites.pending
+        @project
       end
 
       def create
-        @project = Project.new(project_params.merge(owner_id: current_user.id))
+        @project = current_user.projects.new(project_params.merge(owner: current_user))
 
         if @project.save
           render :show, status: :created
@@ -47,7 +48,7 @@ module Api
       end
 
       def ensure_owner!
-        unless @project.owner?
+        unless @project.owner?(current_user)
           render_error("Only project owners can perform this action.", :forbidden)
         end
       end

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :tokens, dependent: :destroy
-  has_many :projects
+  has_many :project_users, dependent: :destroy
+  has_many :projects, through: :project_users
   has_many :invites
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
