@@ -30,9 +30,10 @@ RSpec.describe Api::V1::ProjectsController, type: :request do
   end
 
   describe "POST /api/v1/projects" do
+    let(:user) { create(:user) }
     let(:valid_params) { { project: { title: "New Project", description: "Project description" } } }
     let(:invalid_params) { { project: { title: "" } } }
-
+    before { allow(controller).to receive(:current_user).and_return(user) }
     it "creates a project successfully" do
       expect {
         post "/api/v1/projects", params: valid_params.to_json, headers: headers

@@ -16,8 +16,8 @@ module Api
 
       def create
         @project = current_user.projects.new(project_params.merge(owner: current_user))
-
         if @project.save
+          @project.users << current_user
           render :show, status: :created
         else
           render_error(@project.errors.full_messages)

@@ -1,6 +1,5 @@
 class Project < ApplicationRecord
-  has_many :project_users, dependent: :destroy
-  has_many :users, through: :project_users
+  has_and_belongs_to_many :users, join_table: :projects_users
   has_many :invites
   belongs_to :owner, class_name: "User"
 
