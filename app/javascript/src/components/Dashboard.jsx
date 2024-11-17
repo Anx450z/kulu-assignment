@@ -48,9 +48,9 @@ export const Dashboard = () => {
         <h1>Dashboard</h1>
         <p onClick={() => navigate('/dashboard')}>all projects</p>
         <div className="invite-section">
-          <button className="invite-button" onClick={() => setIsModalOpen(true)}>
+          <span className="invite-button" onClick={() => setIsModalOpen(true)}>
             Invites ({invites.invites?.length || 0})
-          </button>
+          </span>
         </div>
         <p>{email}</p>
         <button onClick={handleLogout} className="logout-button">
