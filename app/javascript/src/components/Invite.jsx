@@ -5,16 +5,10 @@ import '../styles/invite.css'
 import '../styles/project.css'
 
 export const Invite = props => {
-  const getInvites = async () => {
-    const response = await axios.get(`/api/v1/invites`)
-    props.setInviteCount(response.data.invites.length || 0)
-    return response.data
-  }
-
   const handleAccept = async inviteId => {
     try {
       await axios.post(`/api/v1/invites/${inviteId}/accept`)
-      mutate()
+      props.mutate()
     } catch (error) {
       console.error('Error accepting invite:', error)
     }
@@ -23,13 +17,11 @@ export const Invite = props => {
   const handleDecline = async inviteId => {
     try {
       await axios.delete(`/api/v1/invites/${inviteId}`)
-      mutate()
+      props.mutate()
     } catch (error) {
       console.error('Error declining invite:', error)
     }
   }
-
-  const { data: invites = [], mutate } = useSWR('/api/v1/invites', getInvites)
 
   return (
     <>
@@ -46,7 +38,7 @@ export const Invite = props => {
             </button>
           </div>
           <div className="invites-list">
-            {invites.invites?.map(invite => (
+            {props.invites?.map(invite => (
               <div key={invite.id} className="invite-item">
                 <div className="invite-info">
                   <h3>{invite.project.title}</h3>
@@ -63,7 +55,7 @@ export const Invite = props => {
                 </div>
               </div>
             ))}
-            {invites?.length === 0 && <p className="no-invites">No pending invites</p>}
+            {props.invites?.length === 0 && <p className="no-invites">No pending invites</p>}
           </div>
         </div>
       </div>

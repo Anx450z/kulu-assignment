@@ -17,6 +17,15 @@ export const Dashboard = () => {
     navigate('/login')
   }
 
+  const getInvites = async () => {
+    const response = await axios.get(`/api/v1/invites`)
+    setInviteCount(response.data.invites.length || 0)
+    console.log(response.data)
+    return response.data
+  }
+
+  const { data: invites = [], mutate } = useSWR('/api/v1/invites', getInvites)
+
   const email = localStorage.getItem('authEmail')
 
   return (
@@ -34,9 +43,15 @@ export const Dashboard = () => {
           Logout
         </button>
       </nav>
-
-      {isModalOpen && <Invite isModelOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setInviteCount={setInviteCount} /> }
-
+      {isModalOpen && (
+        <Invite
+          isModelOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          setInviteCount={setInviteCount}
+          mutate={mutate}
+          invites={invites.invites}
+        />
+      )}
       <div className="dashboard-container">
         <Projects />
       </div>
