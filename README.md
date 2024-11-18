@@ -29,6 +29,7 @@ This is a project that demonstrate a ROR and React application. Notable things h
 - run `bundle`
 - run `yarn install`
 - run `bin/dev`
+- run `rails:db seed` if you want to seed a dummy data
 
 ### Docker project build
 
