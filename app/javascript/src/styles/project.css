@@ -3,11 +3,17 @@
 }
 
 .header {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
+.header-container {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 .comments-container {
   display: flex;
   width: 100%;

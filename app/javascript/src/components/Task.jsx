@@ -20,9 +20,9 @@ export const Task = () => {
 
   return (
     <Dashboard>
-      <h2 onClick={() => navigate(`/project/${task.project?.id}`)}>
+      <h3 style={{ cursor: 'pointer', color: 'gray' }} onClick={() => navigate(`/project/${task.project?.id}`)}>
         Back to {task.project?.title}
-      </h2>
+      </h3>
       <div className="list-container">
         <div className="header">
           <h2>{task.task?.title}</h2>

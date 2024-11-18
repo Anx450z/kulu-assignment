@@ -41,7 +41,7 @@ export const Comments = props => {
   }
 
   return (
-    <div className="header">
+    <div className="header-container">
       <div className="comment-container">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -66,7 +66,7 @@ export const Comments = props => {
           <div>
             {comments.comments?.map(comment => (
               <div key={comment.id} className="project-card">
-                <div className="header">
+                <div className="header-container">
                   <div className="comment-header">
                     {comment.commenter.email}
                     <div>
