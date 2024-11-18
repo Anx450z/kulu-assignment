@@ -2,6 +2,7 @@ class Task < ApplicationRecord
   belongs_to :project
   has_and_belongs_to_many :users, join_table: :tasks_users
   belongs_to :project, touch: true
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 1000 }, allow_nil: true

@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_18_103126) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "body"
+    t.integer "likes", default: [], array: true
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_comments_on_task_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "invites", force: :cascade do |t|
     t.bigint "user_id"
@@ -89,6 +100,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_103126) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "tasks"
+  add_foreign_key "comments", "users"
   add_foreign_key "invites", "projects"
   add_foreign_key "invites", "users"
   add_foreign_key "projects", "users", column: "owner_id"
