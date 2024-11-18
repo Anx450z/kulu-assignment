@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :projects, join_table: :projects_users
   has_many :owned_projects, class_name: "Project", foreign_key: "owner_id"
   has_many :invites
+  has_and_belongs_to_many :tasks, join_table: :tasks_users
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true

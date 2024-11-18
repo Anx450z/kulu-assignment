@@ -20,9 +20,11 @@ Rails.application.routes.draw do
           post :accept
         end
       end
+      resources :tasks, only: %i[show destroy]
 
       resources :projects do
         resources :invites, only: %i[show create]
+        resources :tasks, only: %i[index create update]
       end
     end
   end
