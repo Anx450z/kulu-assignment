@@ -12,7 +12,6 @@ export const Task = () => {
 
   const getTask = async () => {
     const response = await axios.get(`/api/v1/tasks/${taskId}`)
-    console.log(response.data)
     return response.data
   }
 
@@ -26,17 +25,24 @@ export const Task = () => {
         &lt; {task.project?.title}
       </h3>
 
-      <div className="list-container">
-        <div className="header-container">
-          <h2>Task: {task.task?.title}</h2>
-          <p>
-            <strong>Description: {task.task?.description}</strong>
-          </p>
-          {task.task?.users.map(user => (
-            <p key={user.id}>requester: {user.email}</p>
+      <div className="project-member-container">
+        <div className="list-container">
+          <div className="header-container">
+            <h2>Task: {task.task?.title}</h2>
+            <p>
+              <strong>Description: {task.task?.description}</strong>
+            </p>
+          </div>
+          <Comments taskId={taskId} />
+        </div>
+        <div className="project-members">
+          <h3>Task Members</h3>
+          {task.task?.users?.map(member => (
+            <div key={member.id}>
+              <p>{member.email}</p>
+            </div>
           ))}
         </div>
-        <Comments taskId={taskId} />
       </div>
     </Dashboard>
   )

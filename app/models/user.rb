@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_and_belongs_to_many :tasks, join_table: :tasks_users
 
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true
 
   devise :database_authenticatable, :registerable, :omniauthable, omniauth_providers: %i[google_oauth2]
 

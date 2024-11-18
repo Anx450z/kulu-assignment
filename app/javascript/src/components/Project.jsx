@@ -28,7 +28,6 @@ export const Project = () => {
 
   const getProject = async () => {
     const response = await axios.get(`/api/v1/projects/${id}`)
-    console.log(response.data)
     return response.data
   }
 
@@ -45,10 +44,12 @@ export const Project = () => {
 
   const createTask = async () => {
     const response = await axios.post(`/api/v1/projects/${id}/tasks`, {
-      title: title,
-      description: description,
-      project_id: id,
-      user_ids: userIds,
+      task: {
+        title: title,
+        description: description,
+        project_id: id,
+        user_ids: userIds,
+      }
     })
     setIsModal2Open(false)
     setTitle('')

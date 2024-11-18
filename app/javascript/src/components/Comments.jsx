@@ -10,7 +10,6 @@ export const Comments = props => {
 
   const getComments = async () => {
     const response = await axios.get(`/api/v1/task/${props.taskId}/comments`)
-    console.log(response.data)
     return response.data
   }
 
@@ -71,7 +70,16 @@ export const Comments = props => {
                   <div className="comment-header">
                     {comment.commenter.email}
                     <div>
-                      <strong>{new Date(comment.created_at).toLocaleDateString()}</strong>
+                      <strong>
+                        {new Date(comment.created_at).toLocaleString('en-US', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: false,
+                        })}
+                      </strong>
                     </div>
                   </div>
                   <div className="comment-body">{comment.body}</div>
