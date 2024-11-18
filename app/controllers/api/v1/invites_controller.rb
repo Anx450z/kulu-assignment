@@ -1,7 +1,7 @@
 module Api
   module V1
     class InvitesController < Api::V1::BaseController
-      before_action :set_project, except: [ :index ]
+      before_action :set_project, except: %i[ index accept destroy ]
       before_action :set_invite, only: [ :destroy, :accept ]
       before_action :ensure_can_manage_invites!, only: [ :create, :destroy ]
       before_action :ensure_can_respond!, only: [ :accept ]
@@ -34,7 +34,7 @@ module Api
       def accept
         if @invite.pending?
           @invite.accepted!
-          @project.users << @user
+          @invite.project.users << @user
           render :show
         else
           render_error("This invitation is no longer valid.")
@@ -48,7 +48,7 @@ module Api
       end
 
       def set_invite
-        @invite = @project.invites.find(params[:id])
+        @invite = Invite.find(params[:id])
       end
 
       def set_user
@@ -66,8 +66,7 @@ module Api
       end
 
       def ensure_can_respond!
-        return if Rails.env.test?
-        unless @invite.user == current_user
+        unless @invite.email == current_user.email
           render_error("This invitation was not sent to you.", :forbidden)
         end
       end

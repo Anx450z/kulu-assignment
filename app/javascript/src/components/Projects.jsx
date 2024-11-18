@@ -12,7 +12,6 @@ export const Projects = () => {
 
   const getProjects = async () => {
     const response = await axios.get('/api/v1/projects')
-    console.log(response.data)
     return response.data
   }
 
