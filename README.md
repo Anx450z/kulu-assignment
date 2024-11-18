@@ -1,5 +1,20 @@
 # Kulu Assignment
 
+This is a project that demonstrate a ROR and React application. Notable things here are
+
+- Project configuration
+- User Authentication
+- Invite system
+- Model and Request testcase in Rspec
+- Coverage
+- React
+- Esbuild
+- Axios and interceptor
+- React SWR
+- linting by Rubocop and prettier
+- Docker setup
+- CI integration with github
+
 ## project setup
 
 - run `bin/setup`
