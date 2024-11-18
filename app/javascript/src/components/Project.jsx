@@ -3,6 +3,7 @@ import '../styles/project.css'
 import axios from 'axios'
 import useSWR from 'swr'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Dashboard } from './Dashboard'
 
 export const Project = () => {
   const { id } = useParams()
@@ -14,7 +15,7 @@ export const Project = () => {
 
   const { data: project } = useSWR(['project', id], getProject)
 
-  return <>
+  return <Dashboard>
     <h1>Project</h1>
-  </>
+  </Dashboard>
 }

@@ -3,6 +3,7 @@ import '../styles/project.css'
 import axios from 'axios'
 import useSWR from 'swr'
 import { useNavigate } from 'react-router-dom'
+import { Dashboard } from './Dashboard'
 
 export const Projects = () => {
   const [title, setTitle] = useState('')
@@ -40,7 +41,7 @@ export const Projects = () => {
   }
 
   return (
-    <div>
+      <Dashboard>
       <div className="header">
         <h2>Projects</h2>
         <button onClick={() => setIsModalOpen(true)} className="create-button">
@@ -62,7 +63,6 @@ export const Projects = () => {
               ))
             ) : (
               <div className="empty-state">
-                {console.log(projects.projects)}
                 <p>No projects yet!</p>
               </div>
             )}
@@ -114,7 +114,7 @@ export const Projects = () => {
           </div>
         </div>
       )}
-    </div>
+    </Dashboard>
   )
 }
 

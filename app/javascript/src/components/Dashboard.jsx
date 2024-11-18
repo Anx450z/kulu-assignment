@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authService } from '../services/auth'
-import { Projects } from './Projects'
 import axios from 'axios'
 import useSWR from 'swr'
 import { Invite } from './Invite'
 import '../styles/auth.css'
 
-export const Dashboard = () => {
+export const Dashboard = ({ children }) => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [inviteCount, setInviteCount] = useState(0)
@@ -20,7 +19,6 @@ export const Dashboard = () => {
   const getInvites = async () => {
     const response = await axios.get(`/api/v1/invites`)
     setInviteCount(response.data.invites.length || 0)
-    console.log(response.data)
     return response.data
   }
 
@@ -32,7 +30,7 @@ export const Dashboard = () => {
     <div>
       <nav className="nav-bar">
         <h1>Dashboard</h1>
-        <p onClick={() => navigate('/dashboard')}>all projects</p>
+        <p onClick={() => navigate('/')}>all projects</p>
         <div className="invite-section">
           <span className="invite-button" onClick={() => setIsModalOpen(true)}>
             Invites ({inviteCount || 0})
@@ -53,7 +51,7 @@ export const Dashboard = () => {
         />
       )}
       <div className="dashboard-container">
-        <Projects />
+        {children}
       </div>
     </div>
   )

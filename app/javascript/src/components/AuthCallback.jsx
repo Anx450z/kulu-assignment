@@ -15,7 +15,7 @@ const AuthCallback = () => {
 
     if (token) {
       setToLocalStorage(token, email)
-      navigate('/dashboard')
+      navigate('/')
     } else if (error) {
       navigate('/login', { state: { error } })
     } else {
