@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { useParams } from 'react-router-dom'
 import '../styles/project.css'
 
-export const Comments = (props) => {
+export const Comments = props => {
   const [comment, setComment] = useState('')
   const { id } = useParams()
 
@@ -42,7 +42,7 @@ export const Comments = (props) => {
 
   return (
     <div className="header">
-      <div className="modal">
+      <div className="comment-container">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <textarea
@@ -67,20 +67,20 @@ export const Comments = (props) => {
             {comments.comments?.map(comment => (
               <div key={comment.id} className="project-card">
                 <div className="header">
-                  <div>
-                    <strong>{comment.commenter.email}</strong>
+                  <div className="comment-header">
+                    {comment.commenter.email}
                     <div>
-                      {new Date(comment.created_at).toLocaleDateString()}
+                      <strong>{new Date(comment.created_at).toLocaleDateString()}</strong>
                     </div>
-                    <div>{comment.body}</div>
                   </div>
-                  <div>
+                  <div className="comment-body">{comment.body}</div>
+                  <div className="comment-footer">
                     <button onClick={() => likeComment(comment.id)} className="create-button">
                       {comment.likes_count} likes
                     </button>
                     {comment.commenter.email == localStorage.getItem('authEmail') && (
                       <button onClick={() => deleteComment(comment.id)} className="cancel-button">
-                        🗑️
+                        Delete
                       </button>
                     )}
                   </div>

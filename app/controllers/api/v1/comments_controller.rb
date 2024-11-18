@@ -48,7 +48,7 @@ module Api
       end
 
       def set_comment
-        @comment = @task.comments.find(params[:id])
+        @comment = Comment.find(params[:id])
       end
 
       def comment_params

@@ -1,16 +1,18 @@
 import React from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Dashboard } from './Dashboard'
 import { Comments } from './Comments'
 import '../styles/project.css'
 
 export const Task = () => {
   const { taskId } = useParams()
+  const navigate = useNavigate()
 
   const getTask = async () => {
     const response = await axios.get(`/api/v1/tasks/${taskId}`)
+    console.log(response.data.project.title)
     return response.data
   }
 
@@ -18,10 +20,15 @@ export const Task = () => {
 
   return (
     <Dashboard>
+      <h2 onClick={() => navigate(`/project/${task.project?.id}`)}>
+        Back to {task.project?.title}
+      </h2>
       <div className="list-container">
         <div className="header">
           <h2>{task.task?.title}</h2>
-          <p>{task.task?.description}</p>
+          <p>
+            <strong>{task.task?.description}</strong>
+          </p>
           {task.task?.users.map(user => (
             <p key={user.id}>{user.email}</p>
           ))}
