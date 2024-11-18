@@ -4,12 +4,13 @@ import { ToastContainer } from 'react-toastify'
 import GoogleLogin from './components/GoogleLogin'
 import { registerIntercepts, setAuthHeaders } from './services/api'
 import AuthCallback from './components/AuthCallback'
-import { isLoggedIn }  from './services/storage'
+import { isLoggedIn } from './services/storage'
 import { Project } from './components/Project'
-import Projects from './components/Projects'
+import { Projects } from './components/Projects'
+import { Task } from './components/Task'
 
 const PrivateRoute = () => {
-  return isLoggedIn() ? <Outlet/> : <Navigate to="/login" />
+  return isLoggedIn() ? <Outlet /> : <Navigate to="/login" />
 }
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Projects />} />
             <Route path="/project/:id" element={<Project />} />
+            <Route path="/project/:id/task/:taskId" element={<Task />} />
           </Route>
           <Route path="*" element={<h1>404</h1>} />
         </Routes>

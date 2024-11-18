@@ -11,6 +11,7 @@ module Api
       end
 
       def show
+        @task
       end
 
       def create
@@ -60,7 +61,8 @@ module Api
           :description,
           :due_date,
           :completed_at,
-          user_ids: []
+          :project_id,
+          user_ids: [],
         )
       end
     end

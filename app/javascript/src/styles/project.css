@@ -1,4 +1,7 @@
-/* Header styles */
+*{
+  font-family: monospace;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -14,6 +17,7 @@
   color: white;
   border: none;
   cursor: pointer;
+  margin: 4px;
 }
 
 .create-button:hover {
@@ -26,6 +30,24 @@
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 4px;
+}
+
+.project-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: rgb(57, 136, 201);
+  cursor: pointer;
+}
+
+h2:hover{
+  cursor: default;
+}
+
+.list-container {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  min-height: 75vh;
 }
 
 /* Empty state styles */
@@ -72,10 +94,12 @@
 
 /* Form styles */
 .form-group {
+  display: flex;
   margin-bottom: 15px;
 }
 
 .form-input,
+.form-select,
 .form-textarea {
   width: 100%;
   padding: 8px;
