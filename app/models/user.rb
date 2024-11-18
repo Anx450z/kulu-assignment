@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :tokens, dependent: :destroy
-  has_and_belongs_to_many :projects
+  has_and_belongs_to_many :projects, join_table: :projects_users
   has_many :owned_projects, class_name: "Project", foreign_key: "owner_id"
   has_many :invites
 

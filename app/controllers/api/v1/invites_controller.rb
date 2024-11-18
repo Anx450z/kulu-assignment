@@ -8,7 +8,7 @@ module Api
       before_action :set_user, only: [ :accept ]
 
       def index
-        @invites = current_user.invites.pending
+        @invites = Invite.where(email: current_user.email).pending
       end
 
       def create
