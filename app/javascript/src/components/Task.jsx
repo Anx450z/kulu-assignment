@@ -11,7 +11,6 @@ export const Task = () => {
 
   const getTask = async () => {
     const response = await axios.get(`/api/v1/tasks/${taskId}`)
-    console.log('task', response.data)
     return response.data
   }
 
@@ -27,7 +26,7 @@ export const Task = () => {
             <p key={user.id}>{user.email}</p>
           ))}
         </div>
-        <Comments />
+        <Comments taskId={taskId} />
       </div>
     </Dashboard>
   )

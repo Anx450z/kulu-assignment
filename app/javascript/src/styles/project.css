@@ -9,6 +9,15 @@
   margin-bottom: 20px;
 }
 
+.comments-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
 /* Button styles */
 .create-button {
   padding: 8px 16px;

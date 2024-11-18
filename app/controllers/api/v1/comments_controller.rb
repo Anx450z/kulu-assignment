@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < Api::V1::BaseController
-      before_action :set_task , only: [:create, :update]
+      before_action :set_task , only: [:create, :update, :index]
       before_action :set_comment, only: [:show, :update, :destroy, :like]
 
       def index
@@ -56,3 +56,4 @@ module Api
       end
     end
   end
+end
