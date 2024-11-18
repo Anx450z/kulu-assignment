@@ -1,4 +1,30 @@
-/* src/styles/auth.css */
+*{
+  font-family: monospace;
+}
+
+h1:hover{
+  cursor: default;
+}
+
+.link{
+  text-decoration: none;
+  color: black;
+}
+
+.controls{
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bolder;
+}
+
+.link:hover{
+  text-decoration: bolder;
+  color: rgb(0, 132, 255);
+  cursor: pointer;
+}
+
 .login-container {
   display: flex;
   justify-content: center;

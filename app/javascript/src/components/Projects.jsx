@@ -13,7 +13,6 @@ export const Projects = () => {
 
   const getProjects = async () => {
     const response = await axios.get('/api/v1/projects')
-    console.log(response.data)
     return response.data
   }
 
@@ -53,7 +52,7 @@ export const Projects = () => {
         {isLoading ? (
           <div>Loading projects...</div>
         ) : (
-          <div>
+          <div className='list-container'>
             {projects.projects? (
               projects.projects.map(project => (
                 <div key={project.id} className="project-card" onClick={() => navigate(`/project/${project.id}`)}>
