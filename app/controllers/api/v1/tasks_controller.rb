@@ -17,7 +17,6 @@ module Api
       def create
         @task = @project.tasks.build(task_params)
         if @task.save
-          @task.users << current_user
           render :show, status: :created
         else
           render json: { errors: @task.errors.full_messages },

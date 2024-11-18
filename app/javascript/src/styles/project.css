@@ -9,6 +9,21 @@
   margin-bottom: 20px;
 }
 
+.header-container {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.comments-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
 /* Button styles */
 .create-button {
   padding: 8px 16px;
@@ -24,12 +39,44 @@
   background-color: #0056b3;
 }
 
-/* Project card styles */
-.project-card {
+.project-member-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.project-members {
   border: 1px solid #ddd;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 4px;
+  min-height: 75vh;
+  width: 100%;
+}
+
+/* Project card styles */
+.project-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 10px;
+  border-radius: 4px;
+}
+
+.comment-body{
+  padding: 10px;
+}
+
+.comment-header{
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.comment-footer{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .project-card:hover {
@@ -48,6 +95,7 @@ h2:hover{
   margin-bottom: 10px;
   border-radius: 4px;
   min-height: 75vh;
+  min-width: 70%;
 }
 
 /* Empty state styles */

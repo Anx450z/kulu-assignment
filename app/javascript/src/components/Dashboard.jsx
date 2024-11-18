@@ -30,11 +30,14 @@ export const Dashboard = ({ children }) => {
     <div>
       <nav className="nav-bar">
         <h1>Dashboard</h1>
-        <p className='link' onClick={() => navigate('/')}>All projects</p>
-        <div className="invite-section">
-          <span className="invite-button link" onClick={() => setIsModalOpen(true)}>
-            Invites ({inviteCount || 0})
-          </span>
+        <div className='controls'>
+          <p className='link' onClick={() => navigate('/')}>All projects</p>
+          <p>|</p>
+          <div className="invite-section">
+            <span className="invite-button link" onClick={() => setIsModalOpen(true)}>
+              Invites ({inviteCount || 0})
+            </span>
+          </div>
         </div>
         <div className='controls'>
           <p>{email}</p>

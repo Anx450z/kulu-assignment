@@ -42,7 +42,7 @@ export const Projects = () => {
   return (
       <Dashboard>
       <div className="header">
-        <h2>Projects</h2>
+        <h2>All Projects</h2>
         <button onClick={() => setIsModalOpen(true)} className="create-button">
           Create New Project
         </button>
