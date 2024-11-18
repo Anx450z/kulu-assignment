@@ -5,23 +5,19 @@ module Api
       before_action :ensure_owner!, only: [ :update, :destroy ]
 
       def index
-        @projects = current_user.projects.includes(:invites)
+        @projects = current_user.projects
       end
 
       def show
-        @members = @project.invites.includes(:user).accepted
-        @pending_invites = @project.invites.includes(:user).pending
+        @members = @project.users
+        @pending_invites = @project.invites.pending
+        @project
       end
 
       def create
-        @project = Project.new(project_params)
-
+        @project = current_user.projects.new(project_params.merge(owner: current_user))
         if @project.save
-          @project.invites.create!(
-            user: current_user,
-            role: :owner,
-            status: :accepted
-          )
+          @project.users << current_user
           render :show, status: :created
         else
           render_error(@project.errors.full_messages)
@@ -52,7 +48,7 @@ module Api
       end
 
       def ensure_owner!
-        unless @project.invites.owner.exists?(user: current_user)
+        unless @project.owner?(current_user)
           render_error("Only project owners can perform this action.", :forbidden)
         end
       end

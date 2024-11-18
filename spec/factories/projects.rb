@@ -1,28 +1,18 @@
 FactoryBot.define do
   factory :project do
-    sequence(:title) { |n| "Project #{n}" }
-    description { "Sample project description" }
+    association :owner, factory: :user
+    title { "Sample Project Title" }
+    description { "Sample Project Description" }
 
-    factory :project_with_owner do
-      transient do
-        owner { create(:user) }
-      end
-
-      after(:create) do |project, evaluator|
-        create(:invite, project: project, user: evaluator.owner, role: :owner, status: :accepted)
+    trait :with_users do
+      after(:create) do |project|
+        create_list(:user, 3, projects: [ project ])
       end
     end
 
-    factory :project_with_members do
-      transient do
-        members_count { 2 }
-      end
-
-      after(:create) do |project, evaluator|
-        owner = create(:user)
-        create(:invite, project: project, user: owner, role: :owner, status: :accepted)
-
-        create_list(:invite, evaluator.members_count, project: project, role: :member, status: :accepted)
+    trait :with_invites do
+      after(:create) do |project|
+        create_list(:invite, 2, project: project)
       end
     end
   end

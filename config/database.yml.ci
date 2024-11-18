@@ -5,4 +5,4 @@ test:
   username: <%= ENV.fetch('POSTGRES_USER', 'postgres') %>
   password: <%= ENV.fetch('POSTGRES_PASSWORD', 'postgres') %>
   host: localhost
-  database: github_ci_test<%= ENV['TEST_ENV_NUMBER'] %>
+  database: github_ci_test

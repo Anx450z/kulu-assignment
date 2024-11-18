@@ -1,23 +1,28 @@
 module Api
   module V1
     class InvitesController < Api::V1::BaseController
-      before_action :set_project
+      before_action :set_project, except: %i[ index accept destroy ]
       before_action :set_invite, only: [ :destroy, :accept ]
       before_action :ensure_can_manage_invites!, only: [ :create, :destroy ]
       before_action :ensure_can_respond!, only: [ :accept ]
+      before_action :set_user, only: [ :accept ]
 
       def index
-        @invites = current_user.invites.pending
+        @invites = Invite.where(email: current_user.email).pending
       end
 
       def create
-        @invite = @project.invites.new(invite_params)
-        @invite.status = :pending
+        if [ "admin", "member" ].include?(invite_params[:role])
+          @invite = current_user.invites.new(invite_params)
+          @invite.status = :pending
 
-        if @invite.save
-          render :show, status: :created
+          if @invite.save
+            render :show, status: :created
+          else
+            render_error(@invite.errors.full_messages)
+          end
         else
-          render_error(@invite.errors.full_messages)
+          render_error("Invalid role", :forbidden)
         end
       end
 
@@ -29,6 +34,7 @@ module Api
       def accept
         if @invite.pending?
           @invite.accepted!
+          @invite.project.users << @user
           render :show
         else
           render_error("This invitation is no longer valid.")
@@ -42,22 +48,25 @@ module Api
       end
 
       def set_invite
-        @invite = @project.invites.find(params[:id])
+        @invite = Invite.find(params[:id])
+      end
+
+      def set_user
+        @user = User.find_by(email: @invite.email)
       end
 
       def invite_params
-        params.require(:invite).permit(:user_id, :role)
+        params.require(:invite).permit(:email, :role, :project_id)
       end
 
       def ensure_can_manage_invites!
-        unless @project.invites.find_by(user: current_user).admin_or_owner?
+        unless @project.owner?(current_user) || @project.invites.find_by(email: params[:email]).admin?
           render_error("Only project admins and owners can manage invites.", :forbidden)
         end
       end
 
       def ensure_can_respond!
-        return if Rails.env.test?
-        unless @invite.user == current_user
+        unless @invite.email == current_user.email
           render_error("This invitation was not sent to you.", :forbidden)
         end
       end

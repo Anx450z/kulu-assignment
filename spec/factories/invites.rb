@@ -1,16 +1,17 @@
 FactoryBot.define do
   factory :invite do
-    project
-    user
+    project { create(:project) }
+    email { create(:user).email }
     role { :member }
     status { :pending }
+    user { create(:user) }
 
     trait :accepted do
       status { :accepted }
     end
 
-    trait :owner do
-      role { :owner }
+    trait :member do
+      role { :member }
     end
 
     trait :admin do

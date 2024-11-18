@@ -10,27 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_16_093519) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_17_174006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "invites", force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.integer "status", default: 0
     t.integer "role", default: 0
+    t.string "email", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id", "user_id"], name: "index_invites_on_project_id_and_user_id", unique: true
+    t.index ["email", "project_id"], name: "index_invites_on_email_and_project_id", unique: true
     t.index ["project_id"], name: "index_invites_on_project_id"
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title"
+    t.bigint "owner_id", null: false
+    t.string "title", null: false
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
+  end
+
+  create_table "projects_users", id: false, force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.index ["project_id", "user_id"], name: "index_projects_users_on_project_id_and_user_id", unique: true
+    t.index ["project_id"], name: "index_projects_users_on_project_id"
+    t.index ["user_id"], name: "index_projects_users_on_user_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -57,5 +68,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_16_093519) do
 
   add_foreign_key "invites", "projects"
   add_foreign_key "invites", "users"
+  add_foreign_key "projects", "users", column: "owner_id"
   add_foreign_key "tokens", "users"
 end

@@ -15,13 +15,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :sessions, only: [ :destroy ]
+      resources :invites, only: %i[ index destroy ] do
+        member do
+          post :accept
+        end
+      end
 
       resources :projects do
-        resources :invites, only: %i[index show create destroy] do
-          member do
-            post :accept
-          end
-        end
+        resources :invites, only: %i[show create]
       end
     end
   end
