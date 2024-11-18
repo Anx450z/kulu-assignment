@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import '../styles/invite.css'
 import '../styles/project.css'
 
-export const Invite = props => {
+export const Invite = (props) => {
   const handleAccept = async inviteId => {
     try {
       await axios.post(`/api/v1/invites/${inviteId}/accept`)

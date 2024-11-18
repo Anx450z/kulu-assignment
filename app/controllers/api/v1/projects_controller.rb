@@ -9,7 +9,7 @@ module Api
       end
 
       def show
-        @members = @project.invites.accepted
+        @members = @project.users
         @pending_invites = @project.invites.pending
         @project
       end
