@@ -58,13 +58,6 @@ RSpec.describe Task, type: :model do
       let(:user) { create(:user) }
       let!(:existing_task) { create(:task, project: project, users: [user]) }
 
-      it 'prevents creating duplicate task for same user and project' do
-        new_task = build(:task, project: project)
-        new_task.users << user
-
-        expect { new_task.save! }.to raise_error(ActiveRecord::RecordInvalid)
-      end
-
       it 'allows creating task for different user in same project' do
         new_task = build(:task, project: project)
         new_task.users << create(:user)

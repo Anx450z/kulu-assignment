@@ -19,12 +19,12 @@ Rails.application.routes.draw do
         member do
           post :accept
         end
-      resources :tasks, only: %i[show destroy]
       end
+      resources :tasks, only: %i[show destroy]
 
       resources :projects do
         resources :invites, only: %i[show create]
-        resources :tasks, only: %i[index show create update]
+        resources :tasks, only: %i[index create update]
       end
     end
   end

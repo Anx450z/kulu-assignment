@@ -58,12 +58,12 @@ RSpec.describe 'Api::V1::Invites', type: :request do
     end
   end
 
-  describe 'DELETE /api/v1/projects/:project_id/invites/:id' do
+  describe 'DELETE /api/v1/invites/:id' do
     let!(:invite) { create(:invite, project_id: project.id, user: user, email: 'todelete@example.com') }
 
     it 'destroys the invite' do
       expect {
-        delete "/api/v1/projects/#{project.id}/invites/#{invite.id}", headers: headers
+        delete "/api/v1/invites/#{invite.id}", headers: headers
       }.to change(Invite, :count).by(-1)
 
       expect(response).to have_http_status(:no_content)
@@ -82,7 +82,7 @@ RSpec.describe 'Api::V1::Invites', type: :request do
     end
 
     it 'accepts the invite' do
-      post accept_api_v1_project_invite_path(project, invite), headers: invite_headers
+      post accept_api_v1_invite_path(invite), headers: invite_headers
       expect(response).to have_http_status(:ok)
       expect(invite.reload.status).to eq('accepted')
       expect(project.reload.users).to include(invitee)
@@ -92,7 +92,7 @@ RSpec.describe 'Api::V1::Invites', type: :request do
       before { invite.update!(status: 'accepted') }
 
       it 'returns an error' do
-        post accept_api_v1_project_invite_path(project, invite), headers: invite_headers
+        post accept_api_v1_invite_path(invite), headers: invite_headers
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json_response['error']).to eq('This invitation is no longer valid.')
       end

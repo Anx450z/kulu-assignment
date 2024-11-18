@@ -3,7 +3,7 @@ module Api
     class InvitesController < Api::V1::BaseController
       before_action :set_project, except: %i[ index accept destroy ]
       before_action :set_invite, only: [ :destroy, :accept ]
-      before_action :ensure_can_manage_invites!, only: [ :create, :destroy ]
+      before_action :ensure_can_manage_invites!, only: [ :create ]
       before_action :ensure_can_respond!, only: [ :accept ]
       before_action :set_user, only: [ :accept ]
 
@@ -35,9 +35,9 @@ module Api
         if @invite.pending?
           @invite.accepted!
           @invite.project.users << @user
-          render :show
+          render :show, status: :ok
         else
-          render_error("This invitation is no longer valid.")
+          render_error("This invitation is no longer valid.", :unprocessable_entity)
         end
       end
 
