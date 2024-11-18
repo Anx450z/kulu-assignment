@@ -5,7 +5,7 @@ module Api
       before_action :set_comment, only: [:show, :update, :destroy, :like]
 
       def index
-        @comments = @task.comments
+        @comments = @task.comments.limit(25)
       end
 
       def show
@@ -13,7 +13,7 @@ module Api
       end
 
       def create
-        @comment = @task.comments.build(comment_params)
+        @comment = @task.comments.build(comment_params.merge(user: current_user))
         if @comment.save
           render :show, status: :created
         else
@@ -30,6 +30,9 @@ module Api
       end
 
       def destroy
+        if @comment.user != current_user
+          render_error("You are not authorized to delete this comment", :forbidden)
+        end
         @comment.destroy
         head :no_content
       end
@@ -46,6 +49,10 @@ module Api
 
       def set_comment
         @comment = @task.comments.find(params[:id])
+      end
+
+      def comment_params
+        params.require(:comment).permit(:body, :task_id)
       end
     end
   end

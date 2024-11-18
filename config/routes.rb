@@ -21,6 +21,14 @@ Rails.application.routes.draw do
         end
       end
       resources :tasks, only: %i[show destroy]
+      resources :comments, only: %i[show update destroy] do
+        member do
+          post :like
+        end
+      end
+      resources :task do
+        resources :comments, only: %i[index create]
+      end
 
       resources :projects do
         resources :invites, only: %i[show create]
