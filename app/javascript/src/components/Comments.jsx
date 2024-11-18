@@ -64,6 +64,7 @@ export const Comments = props => {
           <div className="empty-state">Loading comments...</div>
         ) : (
           <div>
+            <h2>Comments</h2>
             {comments.comments?.map(comment => (
               <div key={comment.id} className="project-card">
                 <div className="header-container">

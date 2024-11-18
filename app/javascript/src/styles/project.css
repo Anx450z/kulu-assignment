@@ -39,6 +39,21 @@
   background-color: #0056b3;
 }
 
+.project-member-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.project-members {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  min-height: 75vh;
+  width: 100%;
+}
+
 /* Project card styles */
 .project-card {
   border: 1px solid #ddd;
@@ -80,6 +95,7 @@ h2:hover{
   margin-bottom: 10px;
   border-radius: 4px;
   min-height: 75vh;
+  min-width: 70%;
 }
 
 /* Empty state styles */

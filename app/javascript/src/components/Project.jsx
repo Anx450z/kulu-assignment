@@ -28,6 +28,7 @@ export const Project = () => {
 
   const getProject = async () => {
     const response = await axios.get(`/api/v1/projects/${id}`)
+    console.log(response.data)
     return response.data
   }
 
@@ -68,8 +69,10 @@ export const Project = () => {
   return (
     <Dashboard>
       <div className="header">
-        <h2>{project?.title}</h2>
-        <div className='controls'>
+        <h3 style={{ cursor: 'pointer', color: 'gray' }} onClick={() => navigate(`/`)}>
+          &lt; Project: {project?.title}
+        </h3>
+        <div className="controls">
           <button onClick={() => setIsModalOpen(true)} className="create-button">
             Invite user
           </button>
@@ -78,14 +81,18 @@ export const Project = () => {
           </button>
         </div>
       </div>
-      <div>
+      <div className="project-member-container">
         {isLoading ? (
           <div>Loading tasks...</div>
         ) : (
-          <div className='list-container'>
-            {tasks.tasks? (
+          <div className="list-container">
+            <h2>Tasks</h2>
+            {tasks.tasks ? (
               tasks.tasks.map(task => (
-                <div key={task.id} className="project-card" onClick={() => navigate(`/project/${id}/task/${task.id}`)}>
+                <div
+                  key={task.id}
+                  className="project-card"
+                  onClick={() => navigate(`/project/${id}/task/${task.id}`)}>
                   <h3>{task.title}</h3>
                   <p>{task.description}</p>
                 </div>
@@ -97,6 +104,17 @@ export const Project = () => {
             )}
           </div>
         )}
+        <div className="project-members">
+          <h3>Project Owner</h3>
+          <p>{project?.owner?.email}</p>
+          <br />
+          <h3>Project Members</h3>
+          {project?.members.map(member => (
+            <div key={member.id}>
+              <p>{member.email}</p>
+            </div>
+          ))}
+        </div>
       </div>
       {isModalOpen && (
         <div className="modal-backdrop" onClick={handleBackdropClick}>
