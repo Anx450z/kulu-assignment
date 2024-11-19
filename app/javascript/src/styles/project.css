@@ -1,6 +1,61 @@
-*{
+body {
+  /* Background Colors */
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #f8f8f8;
+  --bg-white: white;
+
+  /* Border Colors */
+  --border-light: #ddd;
+  --border-medium: #b3b3b3;
+
+  /* Button Colors */
+  --button-primary-bg: #007bff;
+  --button-primary-hover: #0056b3;
+  --button-secondary-bg: rgb(214, 214, 214);
+  --button-secondary-hover: #f8f9fa;
+
+  /* Text Colors */
+  --text-primary: black;
+  --text-link: rgb(0, 132, 255);
+  --text-hover: rgb(57, 136, 201);
+  --text-white: white;
+
+  /* Shadow Colors */
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --modal-backdrop: rgba(0, 0, 0, 0.5);
+}
+
+body.dark {
+  /* Background Colors */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-white: #2c2c2c;
+
+  /* Border Colors */
+  --border-light: #444444;
+  --border-medium: #666666;
+
+  /* Button Colors */
+  --button-primary-bg: #3a7ca5;
+  --button-primary-hover: #4e9ac7;
+  --button-secondary-bg: #3c3c3c;
+  --button-secondary-hover: #4a4a4a;
+
+  /* Text Colors */
+  --text-primary: #e0e0e0;
+  --text-link: #4db8ff;
+  --text-hover: #7acbff;
+  --text-white: #ffffff;
+
+  /* Shadow Colors */
+  --shadow-light: rgba(255, 255, 255, 0.05);
+  --modal-backdrop: rgba(0, 0, 0, 0.7);
+}
+
+* {
   font-family: monospace;
-  background-color: #f5f5f5;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .header {
@@ -15,11 +70,12 @@
   align-items: center;
   margin-bottom: 20px;
 }
+
 .comments-container {
   display: flex;
   width: 100%;
   align-items: center;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-light);
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -29,15 +85,15 @@
 .create-button {
   padding: 8px 16px;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--button-primary-bg);
+  color: var(--text-white);
   border: none;
   cursor: pointer;
   margin: 4px;
 }
 
 .create-button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-primary-hover);
 }
 
 .project-member-container {
@@ -47,7 +103,7 @@
 }
 
 .project-members {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-light);
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -57,23 +113,23 @@
 
 /* Project card styles */
 .project-card {
-  border: 1px solid #b3b3b3;
+  border: 1px solid var(--border-medium);
   padding: 15px;
   margin: 10px 10px;
   border-radius: 4px;
 }
 
-.comment-body{
+.comment-body {
   padding: 10px;
 }
 
-.comment-header{
+.comment-header {
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
 }
 
-.comment-footer{
+.comment-footer {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
@@ -81,17 +137,17 @@
 }
 
 .project-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  color: rgb(57, 136, 201);
+  box-shadow: 0 4px 8px var(--shadow-light);
+  color: var(--text-hover);
   cursor: pointer;
 }
 
-h2:hover{
+h2:hover {
   cursor: default;
 }
 
 .list-container {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-light);
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -112,7 +168,7 @@ h2:hover{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-backdrop);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,13 +205,13 @@ h2:hover{
 .form-input,
 .form-select,
 .form-textarea {
-  background-color: #f8f8f8;
+  background-color: var(--bg-secondary);
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 4px;
-  border: 1px solid #ddd;
-  border-bottom: 2px solid #ddd;
+  border: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-light);
 }
 
 .form-textarea {
@@ -163,8 +219,8 @@ h2:hover{
   resize: vertical;
 }
 
-.form-textarea:focus, .form-input:focus{
-  background-color: white;
+.form-textarea:focus, .form-input:focus {
+  background-color: var(--bg-white);
 }
 
 .breadcrumb-container {
@@ -174,16 +230,16 @@ h2:hover{
 }
 
 .breadcrumb {
-  color: black;
+  color: var(--text-primary);
   cursor: pointer;
 }
 
 .breadcrumb:hover {
   font-weight: bolder;
-  color: rgb(0, 132, 255);
+  color: var(--text-link);
 }
 
-.sidebar-controls{
+.sidebar-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -199,8 +255,8 @@ h2:hover{
 .cancel-button {
   padding: 8px 16px;
   border-radius: 4px;
-  border: 1px solid #ddd;
-  background-color: rgb(214, 214, 214);
+  border: 1px solid var(--border-light);
+  background-color: var(--button-secondary-bg);
   min-width: 80px;
   cursor: pointer;
 }
@@ -208,16 +264,16 @@ h2:hover{
 .submit-button {
   padding: 8px 16px;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--button-primary-bg);
+  color: var(--text-white);
   border: none;
   cursor: pointer;
 }
 
 .cancel-button:hover {
-  background-color: #f8f9fa;
+  background-color: var(--button-secondary-hover);
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-primary-hover);
 }

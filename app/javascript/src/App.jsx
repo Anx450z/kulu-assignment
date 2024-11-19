@@ -7,6 +7,7 @@ import { isLoggedIn } from './services/storage'
 import { Project } from './components/Project'
 import { Projects } from './components/Projects'
 import { Task } from './components/Task'
+import { setTheme } from './services/theme'
 
 const PrivateRoute = () => {
   return isLoggedIn() ? <Outlet /> : <Navigate to="/login" />
@@ -17,6 +18,7 @@ const App = () => {
   useEffect(() => {
     setAuthHeaders(setLoading)
     registerIntercepts()
+    setTheme()
   }, [])
 
   if (loading) {

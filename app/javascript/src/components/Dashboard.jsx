@@ -4,12 +4,25 @@ import { authService } from '../services/auth'
 import axios from 'axios'
 import useSWR from 'swr'
 import { Invite } from './Invite'
+import { saveTheme } from '../services/theme'
 import '../styles/auth.css'
 
 export const Dashboard = ({ children }) => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [inviteCount, setInviteCount] = useState(0)
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+
+  const handleThemeChange = () => {
+    if (theme === 'light') {
+      saveTheme('dark')
+      setTheme('dark')
+    } else {
+      saveTheme('light')
+      setTheme('light')
+    }
+    window.location.reload()
+  }
 
   const handleLogout = () => {
     authService.logout()
@@ -30,8 +43,10 @@ export const Dashboard = ({ children }) => {
     <div>
       <nav className="nav-bar">
         <h1>Dashboard</h1>
-        <div className='controls'>
-          <p className='link' onClick={() => navigate('/')}>All projects</p>
+        <div className="controls">
+          <p className="link" onClick={() => navigate('/')}>
+            All projects
+          </p>
           <p>|</p>
           <div className="invite-section">
             <span className="invite-button link" onClick={() => setIsModalOpen(true)}>
@@ -39,7 +54,10 @@ export const Dashboard = ({ children }) => {
             </span>
           </div>
         </div>
-        <div className='controls'>
+        <div className="controls">
+          <button className="cancel-button" onClick={handleThemeChange}>
+            Set {localStorage.getItem('theme')} theme
+          </button>
           <p>{email}</p>
           <button onClick={handleLogout} className="logout-button">
             Logout
@@ -55,9 +73,7 @@ export const Dashboard = ({ children }) => {
           invites={invites.invites}
         />
       )}
-      <div className="dashboard-container">
-        {children}
-      </div>
+      <div className="dashboard-container">{children}</div>
     </div>
   )
 }

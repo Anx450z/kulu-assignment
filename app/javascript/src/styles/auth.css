@@ -1,27 +1,119 @@
-*{
-  font-family: monospace;
+body {
+  /* Font Variables */
+  --font-primary: monospace;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Color Variables */
+  /* Background Colors */
+  --bg-primary: #f5f5f5;
+  --bg-white: white;
+  --bg-light-hover: #f8f9fa;
+  --bg-light-active: #f1f3f4;
+  --bg-error: #ffebee;
+
+  /* Border Colors */
+  --border-light: #ddd;
+  --border-google: #dadce0;
+  --border-error: #ffcdd2;
+
+  /* Text Colors */
+  --text-primary: black;
+  --text-link: #0077ff;
+  --text-link-hover: rgb(0, 132, 255);
+  --text-white: white;
+  --text-error: #c62828;
+
+  /* Button Colors */
+  --button-logout-bg: #dc3545;
+  --button-logout-hover: #c82333;
+  --button-google-text: #0077ff;
+
+  /* Loading Spinner Colors */
+  --spinner-bg: #f3f3f3;
+  --spinner-primary: #3498db;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+
+  /* Shadow */
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1:hover{
+body.dark {
+  /* Font Variables */
+  --font-primary: monospace;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Color Variables */
+  /* Background Colors */
+  --bg-primary: #121212;
+  --bg-white: #1e1e1e;
+  --bg-light-hover: #2a2a2a;
+  --bg-light-active: #353535;
+  --bg-error: #3c2020;
+
+  /* Border Colors */
+  --border-light: #333333;
+  --border-google: #444444;
+  --border-error: #5c3232;
+
+  /* Text Colors */
+  --text-primary: #e0e0e0;
+  --text-link: #4da6ff;
+  --text-link-hover: #6eb8ff;
+  --text-white: #ffffff;
+  --text-error: #ff6b6b;
+
+  /* Button Colors */
+  --button-logout-bg: #a33545;
+  --button-logout-hover: #c14055;
+  --button-google-text: #4da6ff;
+
+  /* Loading Spinner Colors */
+  --spinner-bg: #2c2c2c;
+  --spinner-primary: #5cb8ff;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+
+  /* Shadow */
+  --shadow-light: 0 1px 3px rgba(255, 255, 255, 0.05);
+  --shadow-hover: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+* {
+  font-family: var(--font-primary);
+  color: var(--text-primary);
+}
+
+h1:hover {
   cursor: default;
 }
 
-.link{
+.link {
   text-decoration: none;
-  color: black;
+  color: var(--text-primary);
 }
 
-.controls{
+.controls {
   display: flex;
-  align-items: flex-start;
   align-items: center;
-  gap: 1rem;
-  font-weight: bolder;
+  gap: var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
 }
 
-.link:hover{
+.link:hover {
   text-decoration: bolder;
-  color: rgb(0, 132, 255);
+  color: var(--text-link-hover);
   cursor: pointer;
 }
 
@@ -30,37 +122,37 @@ h1:hover{
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--bg-primary);
 }
 
 .google-login-button {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  background-color: white;
-  border: 1px solid #dadce0;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-google);
   border-radius: 4px;
-  color: #0077ff;
+  color: var(--button-google-text);
   font-size: 14px;
-  font-weight: bolder;
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
   transition: background-color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-light);
 }
 
 .google-login-button:hover {
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-light-hover);
+  box-shadow: var(--shadow-hover);
 }
 
 .google-login-button:active {
-  background-color: #f1f3f4;
+  background-color: var(--bg-light-active);
 }
 
 .google-icon {
   width: 18px;
   height: 18px;
-  margin-right: 12px;
+  margin-right: var(--spacing-sm);
 }
 
 .loading-container {
@@ -68,14 +160,14 @@ h1:hover{
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--bg-primary);
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border: 4px solid var(--spinner-bg);
+  border-top: 4px solid var(--spinner-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -86,16 +178,16 @@ h1:hover{
 }
 
 .error-container {
-  padding: 16px;
-  margin: 16px;
-  background-color: #ffebee;
-  border: 1px solid #ffcdd2;
+  padding: var(--spacing-md);
+  margin: var(--spacing-md);
+  background-color: var(--bg-error);
+  border: 1px solid var(--border-error);
   border-radius: 4px;
-  color: #c62828;
+  color: var(--text-error);
 }
 
 .dashboard-container {
-  padding: 24px;
+  padding: var(--spacing-lg);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -104,14 +196,14 @@ h1:hover{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
-  border-bottom: 1px solid #ddd;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .logout-button {
-  padding: 8px 16px;
-  background-color: #dc3545;
-  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--button-logout-bg);
+  color: var(--text-white);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -119,5 +211,5 @@ h1:hover{
 }
 
 .logout-button:hover {
-  background-color: #c82333;
+  background-color: var(--button-logout-hover);
 }
