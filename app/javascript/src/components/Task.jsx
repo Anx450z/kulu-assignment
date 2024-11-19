@@ -7,13 +7,11 @@ import { Comments } from './Comments'
 import '../styles/project.css'
 
 export const Task = () => {
-  // const [userId, setUserId] = useState('')
   const { taskId } = useParams()
   const navigate = useNavigate()
 
   const getTask = async () => {
     const response = await axios.get(`/api/v1/tasks/${taskId}`)
-    console.log(response.data)
     return response.data
   }
 
@@ -38,8 +36,14 @@ export const Task = () => {
   return (
     <Dashboard>
       <h3 className="breadcrumb-container">
-        <p className="breadcrumb" onClick={() => navigate(`/`)}>All Projects</p><p>&lt;</p>
-        <p className="breadcrumb" onClick={() => navigate(`/project/${task.project?.id}`)}>{task.project?.title}</p><p>&lt;</p>
+        <p className="breadcrumb" onClick={() => navigate(`/`)}>
+          All Projects
+        </p>
+        <p>&lt;</p>
+        <p className="breadcrumb" onClick={() => navigate(`/project/${task.project?.id}`)}>
+          {task.project?.title}
+        </p>
+        <p>&lt;</p>
         <p className="breadcrumb">{task.task?.title}</p>
       </h3>
 

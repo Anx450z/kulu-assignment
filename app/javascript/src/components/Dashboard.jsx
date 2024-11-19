@@ -56,7 +56,7 @@ export const Dashboard = ({ children }) => {
         </div>
         <div className="controls">
           <button className="cancel-button" onClick={handleThemeChange}>
-            Set {localStorage.getItem('theme')} theme
+            Change theme
           </button>
           <p>{email}</p>
           <button onClick={handleLogout} className="logout-button">
@@ -74,6 +74,11 @@ export const Dashboard = ({ children }) => {
         />
       )}
       <div className="dashboard-container">{children}</div>
+      <div className='footer'>
+        <br />
+        <p>This is a demo project by: <a href="https://github.com/Anx450z">Ankur Singh Chauhan</a></p>
+        <p>Source Code: <a href="https://github.com/Anx450z/kulu-assignment">Github</a></p>
+      </div>
     </div>
   )
 }
