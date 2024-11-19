@@ -1,8 +1,8 @@
 module Api
   module V1
     class InvitesController < Api::V1::BaseController
-      before_action :set_project, except: %i[ index accept destroy ]
-      before_action :set_invite, only: [ :destroy, :accept ]
+      before_action :set_project, only: %i[ show create ]
+      before_action :set_invite, only: [ :destroy, :accept, :destroy ]
       before_action :ensure_can_manage_invites!, only: [ :create ]
       before_action :ensure_can_respond!, only: [ :accept ]
       before_action :set_user, only: [ :accept ]

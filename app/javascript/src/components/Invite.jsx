@@ -46,10 +46,10 @@ export const Invite = (props) => {
                   <p>Owner: {invite.project.owner.email}</p>
                 </div>
                 <div className="invite-actions">
-                  <button className="accept-button" onClick={() => handleAccept(invite.id)}>
+                  <button className="create-button" onClick={() => handleAccept(invite.id)}>
                     Accept
                   </button>
-                  <button className="decline-button" onClick={() => handleDecline(invite.id)}>
+                  <button className="cancel-button" onClick={() => handleDecline(invite.id)}>
                     Decline
                   </button>
                 </div>
