@@ -1,8 +1,5 @@
 import axios from 'axios'
 import { isLoggedIn, getFromLocalStorage } from './storage'
-import Toastr from '../components/Toastr'
-
-const DEFAULT_ERROR_NOTIFICATION = 'Something went wrong!'
 
 axios.defaults.baseURL = '/'
 
@@ -26,7 +23,6 @@ const handleErrorResponse = axiosErrorObject => {
   if (axiosErrorObject.response?.status === 401) {
     setTimeout(() => (window.location.href = '/'), 2000)
   }
-  Toastr.error(axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION)
   if (axiosErrorObject.response?.status === 423) {
     window.location.href = '/'
   }

@@ -1,6 +1,5 @@
 import react, { useState, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, Navigate, Outlet } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
 import GoogleLogin from './components/GoogleLogin'
 import { registerIntercepts, setAuthHeaders } from './services/api'
 import AuthCallback from './components/AuthCallback'
@@ -38,7 +37,6 @@ const App = () => {
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer />
     </>
   )
 }
