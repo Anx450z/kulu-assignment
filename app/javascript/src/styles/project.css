@@ -167,6 +167,12 @@ h2:hover{
   background-color: white;
 }
 
+.breadcrumb-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
 .breadcrumb {
   color: black;
   cursor: pointer;

@@ -70,9 +70,10 @@ export const Project = () => {
   return (
     <Dashboard>
       <div className="header">
-        <h3 className='breadcrumb' onClick={() => navigate(`/`)}>
-          &lt; Project: {project?.title}
-        </h3>
+      <h3 className="breadcrumb-container">
+        <p className="breadcrumb" onClick={() => navigate(`/`)}>All Projects</p><p>&lt;</p>
+        <p className="breadcrumb" onClick={() => navigate(`/project/${project?.id}`)}>{project?.title}</p>
+      </h3>
         <div className="controls">
           <button onClick={() => setIsModalOpen(true)} className="create-button">
             Invite user

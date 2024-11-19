@@ -20,7 +20,12 @@ Rails.application.routes.draw do
           post :accept
         end
       end
-      resources :tasks, only: %i[show destroy]
+      resources :tasks, only: %i[show destroy] do
+        member do
+          patch :assign_user
+          patch :unassign_user
+        end
+      end
       resources :comments, only: %i[show update destroy] do
         member do
           post :like
