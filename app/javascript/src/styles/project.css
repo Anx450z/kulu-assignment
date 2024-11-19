@@ -120,7 +120,6 @@ h2:hover{
 }
 
 .modal {
-  background-color: white;
   padding: 20px;
   border-radius: 8px;
   width: 90%;
@@ -154,13 +153,17 @@ h2:hover{
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 4px;
-  background-color: white;
-  border: 1px solid #ddd;
+  border: none;
+  border-bottom: 2px solid #ddd;
 }
 
 .form-textarea {
-  min-height: 100px;
+  min-height: 70px;
   resize: vertical;
+}
+
+.form-textarea:focus, .form-input:focus{
+  background-color: white;
 }
 
 .modal-footer {
