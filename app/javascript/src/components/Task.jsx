@@ -12,6 +12,7 @@ export const Task = () => {
 
   const getTask = async () => {
     const response = await axios.get(`/api/v1/tasks/${taskId}`)
+    console.log(response.data)
     return response.data
   }
 
@@ -20,7 +21,7 @@ export const Task = () => {
   return (
     <Dashboard>
       <h3
-        style={{ cursor: 'pointer', color: 'gray' }}
+        className='breadcrumb'
         onClick={() => navigate(`/project/${task.project?.id}`)}>
         &lt; {task.project?.title}
       </h3>
@@ -38,8 +39,17 @@ export const Task = () => {
         <div className="project-members">
           <h3>Task Members</h3>
           {task.task?.users?.map(member => (
-            <div key={member.id}>
+            <div className='sidebar-controls' key={member.id}>
               <p>{member.email}</p>
+              <button className='cancel-button'>Remove</button>
+            </div>
+          ))}
+          <br />
+          <h3>Project Members</h3>
+          {task.project_members?.map(member => (
+            <div className='sidebar-controls' key={member.id}>
+              <p>{member.email}</p>
+              <button className='cancel-button'>Add</button>
             </div>
           ))}
         </div>

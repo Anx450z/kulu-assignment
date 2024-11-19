@@ -70,7 +70,7 @@ export const Project = () => {
   return (
     <Dashboard>
       <div className="header">
-        <h3 style={{ cursor: 'pointer', color: 'gray' }} onClick={() => navigate(`/`)}>
+        <h3 className='breadcrumb' onClick={() => navigate(`/`)}>
           &lt; Project: {project?.title}
         </h3>
         <div className="controls">
