@@ -72,3 +72,7 @@ end
 gem "jwt", "~> 2.9"
 
 gem "sqlite3", "~> 2.3"
+
+gem "kamal", "~> 2.3"
+
+gem "thruster", "~> 0.1.9"
