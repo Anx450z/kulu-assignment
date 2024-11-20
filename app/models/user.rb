@@ -26,6 +26,10 @@ class User < ApplicationRecord
     user
   end
 
+  def downcase_email
+    self.email = email.downcase
+  end
+
   def password_required?
     new_record?
   end

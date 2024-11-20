@@ -11,14 +11,11 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "comments", force: :cascade do |t|
     t.string "body"
-    t.integer "likes", default: [], array: true
-    t.bigint "user_id", null: false
-    t.bigint "task_id", null: false
+    t.json "likes", default: []
+    t.integer "user_id", null: false
+    t.integer "task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_comments_on_task_id"
@@ -26,11 +23,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   end
 
   create_table "invites", force: :cascade do |t|
-    t.bigint "user_id"
+    t.integer "user_id"
     t.integer "status", default: 0
     t.integer "role", default: 0
     t.string "email", null: false
-    t.bigint "project_id", null: false
+    t.integer "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email", "project_id"], name: "index_invites_on_email_and_project_id", unique: true
@@ -39,7 +36,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.bigint "owner_id", null: false
+    t.integer "owner_id", null: false
     t.string "title", null: false
     t.string "description"
     t.datetime "created_at", null: false
@@ -48,8 +45,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "user_id"
+    t.integer "project_id"
+    t.integer "user_id"
     t.index ["project_id", "user_id"], name: "index_projects_users_on_project_id_and_user_id", unique: true
     t.index ["project_id"], name: "index_projects_users_on_project_id"
     t.index ["user_id"], name: "index_projects_users_on_user_id"
@@ -58,7 +55,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   create_table "tasks", force: :cascade do |t|
     t.string "title", limit: 255, null: false
     t.text "description"
-    t.bigint "project_id", null: false
+    t.integer "project_id", null: false
     t.datetime "completed_at"
     t.datetime "due_date"
     t.datetime "created_at", null: false
@@ -68,8 +65,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   end
 
   create_table "tasks_users", force: :cascade do |t|
-    t.bigint "task_id", null: false
-    t.bigint "user_id", null: false
+    t.integer "task_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id", "user_id"], name: "index_tasks_users_on_task_id_and_user_id", unique: true
@@ -79,7 +76,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_184458) do
   end
 
   create_table "tokens", force: :cascade do |t|
-    t.bigint "user_id"
+    t.integer "user_id"
     t.string "content", default: "", null: false
     t.integer "active_status", default: 0
     t.datetime "created_at", null: false
