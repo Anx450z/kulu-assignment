@@ -2,7 +2,7 @@
 service: kulu_assignment
 
 # Name of the container image.
-image: project/kulu_assignment
+image: anx450z/project
 
 # Deploy to these servers.
 servers:
