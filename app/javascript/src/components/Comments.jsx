@@ -7,6 +7,7 @@ import '../styles/project.css'
 export const Comments = props => {
   const [comment, setComment] = useState('')
   const { id } = useParams()
+  const email = localStorage.getItem('authEmail')
 
   const getComments = async () => {
     const response = await axios.get(`/api/v1/task/${props.taskId}/comments`)
@@ -28,11 +29,22 @@ export const Comments = props => {
   }
 
   const deleteComment = async commentId => {
-    await axios.delete(`/api/v1/comments/${commentId}`)
+    const response = await axios.delete(`/api/v1/comments/${commentId}`)
     mutate()
+
+    // document.startViewTransition(() => {
+    //   const comment = document.getElementById(`comment-${commentId}`)
+    //   if (response.statusText == 'No Content') {
+    //     comment?.remove()
+    //   }
+    // })
   }
 
-  const { data: comments = [], mutate, isLoading } = useSWR(['comments', id], getComments)
+  const {
+    data: comments = [],
+    mutate,
+    isLoading,
+  } = useSWR(['comments', id], getComments)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -62,15 +74,24 @@ export const Comments = props => {
         {isLoading ? (
           <div className="empty-state">Loading comments...</div>
         ) : (
-          <div>
+          <ul>
             <h2>Comments</h2>
             {comments.comments?.map(comment => (
-              <div key={comment.id} className="project-card">
+              <li
+                key={comment.id}
+                id={`comment-${comment.id}`}
+                style={{
+                  viewTransitionName: `comment-${comment.id}`,
+                  transition: 'opacity 0.3s, transform 0.3s',
+                }}
+                className='project-card'>
                 <div className="header-container">
                   <div className="comment-header">
-                    {comment.commenter.email}
+                    <strong>
+                      {comment.commenter.email == email ? 'You' : comment.commenter.email}
+                    </strong>
                     <div>
-                      <strong>
+                      <i>
                         {new Date(comment.created_at).toLocaleString('en-US', {
                           year: 'numeric',
                           month: 'short',
@@ -79,27 +100,29 @@ export const Comments = props => {
                           minute: '2-digit',
                           hour12: false,
                         })}
-                      </strong>
+                      </i>
                     </div>
                   </div>
+                  <hr />
                   <div className="comment-body">{comment.body}</div>
                   <div className="comment-footer">
-                    <button onClick={() => likeComment(comment.id)} className="create-button">
+                    <button onClick={() => likeComment(comment.id)} className="secondary-button">
                       {comment.likes_count} likes
                     </button>
+                    <p>|</p>
                     {comment.commenter.email == localStorage.getItem('authEmail') && (
-                      <button onClick={() => deleteComment(comment.id)} className="cancel-button">
+                      <button onClick={() => deleteComment(comment.id)} className="delete-button">
                         Delete
                       </button>
                     )}
                   </div>
                 </div>
-              </div>
+              </li>
             ))}
             {comments.length === 0 && (
               <div className="empty-state">No comments yet. Be the first to comment!</div>
             )}
-          </div>
+          </ul>
         )}
       </div>
     </div>
