@@ -193,7 +193,6 @@ h1:hover {
 }
 
 .nav-bar {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -218,4 +217,27 @@ h1:hover {
 
 .logout-button:hover {
   background-color: var(--button-logout-hover);
+}
+
+@keyframes shrink-name {
+  from {
+    font-size: 2em;
+  }
+  to {
+    font-size: 1.5em;
+  }
+}
+
+nav {
+  position: sticky;
+  top: 0;
+}
+
+h1 {
+  animation: shrink-name linear both;
+}
+
+nav, h1 {
+  animation-timeline: scroll();
+  animation-range: 0 150px;
 }

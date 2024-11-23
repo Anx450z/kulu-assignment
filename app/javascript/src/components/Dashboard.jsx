@@ -35,7 +35,7 @@ export const Dashboard = ({ children }) => {
     return response.data
   }
 
-  const { data: invites = [], mutate } = useSWR('/api/v1/invites', getInvites)
+  const { data: invites = [], mutate } = useSWR('/api/v1/invites', getInvites, { revalidateOnFocus: true, revalidateOnMount: false, refreshInterval:30000})
 
   const email = localStorage.getItem('authEmail')
 

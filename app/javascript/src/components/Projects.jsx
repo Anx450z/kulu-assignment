@@ -31,7 +31,7 @@ export const Projects = () => {
     }
   }
 
-  const { data: projects = [], isLoading, mutate } = useSWR('/api/v1/projects', getProjects)
+  const { data: projects = [], isLoading, mutate } = useSWR('/api/v1/projects', getProjects, { revalidateOnFocus: false})
 
   const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {

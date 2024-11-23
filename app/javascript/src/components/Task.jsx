@@ -31,7 +31,7 @@ export const Task = () => {
     return response.data
   }
 
-  const { data: task = {}, mutate } = useSWR(['task', taskId], getTask)
+  const { data: task = {}, mutate } = useSWR(['task', taskId], getTask, { revalidateOnFocus:false, revalidateOnMount: true })
 
   return (
     <Dashboard>
