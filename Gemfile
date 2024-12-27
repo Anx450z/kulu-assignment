@@ -69,6 +69,6 @@ group :test do
   gem "shoulda-matchers", "~> 6.4"
 end
 
-gem "jwt", "~> 2.9"
+gem "jwt", "~> 2.10"
 
 gem "sqlite3", "~> 2.3"
